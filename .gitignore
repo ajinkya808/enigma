@@ -130,6 +130,6 @@ dmypy.json
 
 #gitinore
 git_ignore/
-#Login_Credentials.txt
+Login_Credentials.txt
 support_resistance.xlsx
 Zerodha_workflow/holdings.csv
