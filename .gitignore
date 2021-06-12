@@ -128,8 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#gitinore
-Login_Credentials.txt
+#gitignore
 support_resistance.xlsx
 Zerodha_workflow/holdings.csv
 Enigma_Pilot.ipynb
+
