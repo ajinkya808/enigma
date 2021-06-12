@@ -27,14 +27,14 @@ class zerodha_workflow:
         pin_zerodha = login_credentials["zerodha_credentials"]["pin"]
 
         # Zerodha Webdriver
-        if os.path.exists(operating_dir+"/Zerodha_workflow/holdings.csv"):
-            os.remove(operating_dir+"/Zerodha_workflow/holdings.csv")
+        if os.path.exists(os.path.join(operating_dir,"Zerodha_workflow","holdings.csv")):
+            os.remove(os.path.join(operating_dir,"Zerodha_workflow","holdings.csv"))
         else:
             pass
 
         op = webdriver.ChromeOptions()
-        p = {"download.default_directory": operating_dir +
-             "/Zerodha_workflow", "safebrowsing.enabled": "false"}
+        p = {"download.default_directory": os.path.join(operating_dir,
+             "Zerodha_workflow"), "safebrowsing.enabled": "false"}
         op.add_experimental_option("prefs", p)
         driver = webdriver.Chrome(executable_path=chromeDriver_dir, options=op)
         driver.implicitly_wait(3)
@@ -63,8 +63,6 @@ class zerodha_workflow:
         submit_button.click()
         
         driver.find_element_by_xpath(
-            "/html/body/div[1]/div/div/div[1]/div/div/div/form/div[3]/button").click()  # continuebutton
-        driver.find_element_by_xpath(
             "/html/body/div[1]/div[1]/div/div[2]/div[1]/a[3]/span").click()  # click on holdings
         driver.find_element_by_xpath(
             "/html/body/div[1]/div[2]/div[2]/div/div/section/div/div/div/span[3]/span").click()  # click on download
@@ -73,12 +71,15 @@ class zerodha_workflow:
         driver.quit()
 
         # Read Zerodha Sheet
-        zerodha_holdings = pd.read_csv(
-            operating_dir+"/Zerodha_workflow/holdings.csv", usecols=[0, 1, 2, 3])
+        zerodha_holdings = pd.read_csv(os.path.join(
+            operating_dir,"Zerodha_workflow","holdings.csv"), usecols=[0, 1, 2, 3])
 
         # Read upload document to trendline
         upload_document = pd.read_excel(
-            operating_dir+"/Zerodha_workflow/bulk_add_wl.xls")
+            os.path.join(operating_dir,"Zerodha_workflow","bulk_add_wl.xls"))
         upload_document['Stock code'] = zerodha_holdings['Instrument']
-        upload_document.to_excel(
-            operating_dir+"/Zerodha_workflow/bulk_add_wl.xls", index=False)
+        upload_document.to_excel(os.path.join(
+            operating_dir,"Zerodha_workflow","bulk_add_wl.xls"), index=False)
+
+if __name__=="__main__":
+    zerodha_workflow(os.getcwd(), os.path.join(os.path.dirname(os.getcwd()), "chromedriver"))

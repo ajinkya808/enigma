@@ -14,16 +14,16 @@ class enigma:
     def __init__(self, operating_dir, chromeDriver_dir, exclude_stocks):
 
         # Read Trendlyne sheet
-        trendlyne_supportview = pd.read_excel(operating_dir+"/Trendlyn_workflow/Your Watch List  Performance view - Trendlyne.xlsx", header=1, usecols=[
+        trendlyne_supportview = pd.read_excel(os.path.join(operating_dir,"/Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx"), header=1, usecols=[
                                               1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16, 17, 18,20,21,22,23], names=['Instrument', 'class', 's1', 's2', 's3', 'r1', 'volatility', 'D', 'M', 'V', 'Week', 'Month', '2Yr', '3Yr', '5Yr','Sector','1Yr','Target Rs.','Target %'])
         
         # Zerodha Sheet read
-        zerodha_holdings = pd.read_csv(operating_dir+"/Zerodha_workflow/holdings.csv", usecols=[0, 1, 2, 3])
+        zerodha_holdings = pd.read_csv(os.path.join(operating_dir,"Zerodha_workflow","holdings.csv"), usecols=[0, 1, 2, 3])
         zerodha_holdings['Investment'] = zerodha_holdings['Qty.'] * zerodha_holdings['Avg. cost']
         zerodha_holdings['Current'] = zerodha_holdings['Qty.'] * zerodha_holdings['LTP']
         zerodha_holdings['P&L'] = zerodha_holdings['Current'] - zerodha_holdings['Investment']
         zerodha_holdings['%P&L'] = round(zerodha_holdings['P&L']*100/zerodha_holdings['Investment'], 1)
-        temp = pd.read_csv(operating_dir+"/Zerodha_workflow/holdings.csv", usecols=[7])
+        temp = pd.read_csv(os.path.join(operating_dir,"Zerodha_workflow","holdings.csv"), usecols=[7])
         zerodha_holdings['Day'] = temp['Day chg.']
         
         # merge the two sheets and round as well as fillna

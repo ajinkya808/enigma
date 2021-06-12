@@ -15,7 +15,7 @@ class trendlyn_workflow:
         
         
 
-        trendlyn_bulkUpload_sheet_path=operating_dir+"/Zerodha_workflow/bulk_add_wl.xls"
+        trendlyn_bulkUpload_sheet_path=os.path.join(operating_dir,"Zerodha_workflow","bulk_add_wl.xls")
         
         with open('Login_Credentials.txt') as json_file:
             login_credentials = json.load(json_file)
@@ -24,13 +24,13 @@ class trendlyn_workflow:
         password_trendlyne=login_credentials["trendlyne_credentials"]["password"]
 
         #Trenddlyne Webdriver
-        if os.path.exists(operating_dir+"/Trendlyn_workflow/Your Watch List  Performance view - Trendlyne.xlsx"):
-            os.remove(operating_dir+"/Trendlyn_workflow/Your Watch List  Performance view - Trendlyne.xlsx")
+        if os.path.exists(os.path.join(operating_dir,"/Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx")):
+            os.remove(os.path.join(operating_dir,"/Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx"))
         else:
             pass
 
         op = webdriver.ChromeOptions() 
-        p = {"download.default_directory":operating_dir+"/Trendlyn_workflow", "safebrowsing.enabled":"false"}
+        p = {"download.default_directory":os.path.join(operating_dir,"/Trendlyn_workflow"), "safebrowsing.enabled":"false"}
         op.add_experimental_option("prefs", p)
         driver=webdriver.Chrome(executable_path=chromeDriver_dir,options=op)
         driver.implicitly_wait(3)
@@ -41,35 +41,44 @@ class trendlyn_workflow:
         driver.get("https://trendlyne.com/visitor/loginmodal/")
         driver.maximize_window()
         driver.find_element_by_class_name("close").click() #Close download App card
+        time.sleep(2)
         #driver.find_element_by_id("login-signup-btn").click() #Login sign up button
         driver.find_element_by_id("id_login").send_keys(login_id_trendlyn) #Login ID for trendlyn
         driver.find_element_by_id("id_password").send_keys(password_trendlyne) #Password
+        time.sleep(1)
         driver.find_element_by_xpath("/html/body/div[2]/div/div/div/div/div[1]/div/div[1]/div[2]/form/div[3]/button").click() #Login button
+        time.sleep(3)
         driver.find_element_by_xpath("//*[@id='navbarmoremenu']/li[12]/a").click() #watchlist button
-    
+        time.sleep(3)
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div[1]/div/button").click()#select watchlist
-        
+        time.sleep(3)
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div[1]/div/ul/li[4]").click()#select ghost
-        
+        time.sleep(3)
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[1]/div[2]/div[1]/span[1]/a").click() #bulk upload click
         
         uploadElement = driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[1]/div[2]/div[2]/form/div/div/input")
         uploadElement.send_keys(trendlyn_bulkUpload_sheet_path) #upload sheet to bulkupload
         
-        #time.sleep(2)
+        # time.sleep(2)
         driver.find_element_by_xpath('/html/body/div[2]/div[3]/div[1]/div[2]/div[2]/form/div/div/div[1]/button').click() #upload button click
-    
+        time.sleep(3)
         driver.find_element_by_xpath("/html/body/div[2]/div[2]/a").click() #go back button click
         
         #driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div[1]/div/button").click()#select watchlist
         #driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div[1]/div/ul/li[3]").click()#select ghost
         
+        time.sleep(2)
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div[1]/div/button").click()#select watchlist
+        time.sleep(2)
         driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[2]/div[1]/div[1]/div/ul/li[4]").click()#select ghost
         
+        time.sleep(2)
         driver.find_element_by_xpath("/html/body/div[2]/div[4]/div/div[2]/div/div[1]/div[2]/ul/li[2]/div/a").click()
+        time.sleep(2)
         driver.find_element_by_xpath("//*[@id='5002']").click()
+        time.sleep(2)
         driver.find_element_by_xpath("//*[@id='groupTable_wrapper']/div[1]/div[1]/div[2]/button").click()
+        time.sleep(2)
         driver.find_element_by_xpath("/html/body/div[2]/div[4]/div/div[4]/div/div[1]/div[1]/div[2]/div/a[2]").click()
         time.sleep(10)
     
