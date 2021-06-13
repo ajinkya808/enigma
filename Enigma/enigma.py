@@ -14,7 +14,7 @@ class enigma:
     def __init__(self, operating_dir, chromeDriver_dir, exclude_stocks):
 
         # Read Trendlyne sheet
-        trendlyne_supportview = pd.read_excel(os.path.join(operating_dir,"Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx"), header=1, usecols=[
+        trendlyne_supportview = pd.read_excel(os.path.join(operating_dir,"/Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx"), header=1, usecols=[
                                               1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16, 17, 18,20,21,22,23], names=['Instrument', 'class', 's1', 's2', 's3', 'r1', 'volatility', 'D', 'M', 'V', 'Week', 'Month', '2Yr', '3Yr', '5Yr','Sector','1Yr','Target Rs.','Target %'])
         
         # Zerodha Sheet read

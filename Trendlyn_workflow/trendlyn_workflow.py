@@ -24,13 +24,13 @@ class trendlyn_workflow:
         password_trendlyne=login_credentials["trendlyne_credentials"]["password"]
 
         #Trenddlyne Webdriver
-        if os.path.exists(os.path.join(operating_dir,"Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx")):
-            os.remove(os.path.join(operating_dir,"Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx"))
+        if os.path.exists(os.path.join(operating_dir,"/Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx")):
+            os.remove(os.path.join(operating_dir,"/Trendlyn_workflow","Your Watch List  Performance view - Trendlyne.xlsx"))
         else:
             pass
 
         op = webdriver.ChromeOptions() 
-        p = {"download.default_directory":os.path.join(operating_dir,"Trendlyn_workflow"), "safebrowsing.enabled":"false"}
+        p = {"download.default_directory":os.path.join(operating_dir,"/Trendlyn_workflow"), "safebrowsing.enabled":"false"}
         op.add_experimental_option("prefs", p)
         driver=webdriver.Chrome(executable_path=chromeDriver_dir,options=op)
         driver.implicitly_wait(3)
