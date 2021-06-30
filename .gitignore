@@ -136,3 +136,8 @@ git_ignore/Login_Credentials.txt
 Login_Credentials.txt
 Zerodha_workflow/holdings.csv
 .gitignore
+Zerodha_workflow/bulk_add_wl.xls
+Zerodha_workflow/bulk_add_wl.xls
+Zerodha_workflow/holdings.csv
+Zerodha_workflow/watchlist_instruments.csv
+Zerodha_workflow/holdings.csv
